@@ -3,9 +3,9 @@ package com.example.av1_android_alisson.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,6 +29,19 @@ public class ListCustomersActivity extends AppCompatActivity {
         }
         ListView listCustomers = findViewById(R.id.listCustomers);
         listCustomers.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, customerList));
+
+        listCustomers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Customer clickedCustomer = customerList.get(position);
+                Intent intent2 = new Intent(ListCustomersActivity.this, CustomerRegistrationActivity.class);
+                intent2.putExtra("customerList", new ArrayList<>(customerList));
+                intent2.putExtra("selectedPosition", position);
+                startActivity(intent2);
+
+            }
+        });
     }
 
     public void btnBack(View view) {
